@@ -29,7 +29,7 @@
              {:id "min"
               :source-paths ["src"]
               :compiler {:output-to "index.ios.js"
-                         :optimizations :none
+                         :optimizations :simple
                          :pretty-print true}}]}
 
   :figwheel {

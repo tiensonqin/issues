@@ -1,12 +1,11 @@
 # issues
 
-demo with react-native v0.14.2 and optimizations set to :simple
+demo with react-native v0.14.2 and optimizations set to :simple.
 
 ## bundle
 
 ``` bash
 lein cljs once min
-react-native bundle --entry-file index.ios.js --bundle-output ios/main.jsbundle --platform ios --dev false
 ```
 
 

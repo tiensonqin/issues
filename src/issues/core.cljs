@@ -92,12 +92,15 @@
 
 
 (defn root []
-  [navigator {:initial-route {:title "App1" :component page-comp} :style (:fullscreen styles)}])
+  [navigator {:initial-route {:title "App4" :component page-comp} :style (:fullscreen styles)}])
+
+;; -------------------- min profile, for offline bundle, release --------------------
 
 ;; (.registerRunnable (.-AppRegistry js/React) "issues"
 ;;                    (fn [params]
 ;;                      (r/render [root] (.-rootTag params))))
 
+;; -------------------- dev profile --------------------
 (r/render [root] 1)
 
 (defn ^:export init []

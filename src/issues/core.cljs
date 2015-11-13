@@ -1,8 +1,7 @@
 (ns issues.core
-  (:require [reagent.core :as r :refer [atom]]
-            [reagent.impl.component :as ru]))
+  (:require [reagent.core :as r :refer [atom]]))
 
-(set! js/React (js/require "react-native"))
+(set! js/React (js/require "react-native/Libraries/react-native/react-native.js"))
 
 (def text (r/adapt-react-class (.-Text js/React)))
 (def view (r/adapt-react-class (.-View js/React)))
@@ -20,27 +19,22 @@
 (defn alert[title content]
   (.alert (.-AlertIOS js/React) title content))
 
-(defn create-style[s]
-  (let [s1 (reduce #(assoc %1 (%2 0) (ru/camelify-map-keys (%2 1))) {} s)]
-    (js->clj (.create (.-StyleSheet js/React) (clj->js s1)))))
-
 (enable-console-print!)
 
-(def styles (create-style
-             {:fullscreen {:position "absolute"
-                           :top 0
-                           :left 0
-                           :bottom 0
-                           :right 0}
-              :green {:color "#00ff00"}
-              :viewbg {:padding 10
-                       :background-color "#ffffff"}
-              :input {:height 35
-                      :border-color "gray"
-                      :border-width 1
-                      :padding-left 10
-                      :border-radius 5
-                      :margin 10}}))
+(def styles {:fullscreen {:position "absolute"
+                          :top 0
+                          :left 0
+                          :bottom 0
+                          :right 0}
+             :green {:color "#00ff00"}
+             :viewbg {:padding 10
+                      :background-color "#ffffff"}
+             :input {:height 35
+                     :border-color "gray"
+                     :border-width 1
+                     :padding-left 10
+                     :border-radius 5
+                     :margin 10}})
 
 (def global-state (r/atom 0))
 
@@ -64,11 +58,11 @@
    [tabs-item {:title "tab1" :on-press #(reset! current-tab "tab1") :selected (= "tab1" @current-tab)}
     [scroll {:always-bounce-vertical true
              :bounces true
-             :style (styles "fullscreen")}
-     [view {:style [(styles "viewbg") {:flexDirection "column"}]}
+             :style (:fullscreen styles)}
+     [view {:style [(:viewbg styles) {:flexDirection "column"}]}
       [text @global-state]
-      [text {:style (styles "green")} "native"]
-      [input {:style (styles "input")
+      [text {:style (:green styles)} "native"]
+      [input {:style (:input styles)
               :value @global-state
               :on-change-text #(reset! global-state %)}]
       [slider {:style {:width 200}
@@ -97,9 +91,20 @@
                                          [text @row]]))))
 
 
-(defn root[]
-  [navigator {:initial-route {:title "App1" :component page-comp} :style (styles "fullscreen")}])
+(defn root []
+  [navigator {:initial-route {:title "App1" :component page-comp} :style (:fullscreen styles)}])
 
-(.registerRunnable (.-AppRegistry js/React) "issues"
-                   (fn [params]
-                     (r/render [root] (.-rootTag params))))
+;; (.registerRunnable (.-AppRegistry js/React) "issues"
+;;                    (fn [params]
+;;                      (r/render [root] (.-rootTag params))))
+
+(r/render [root] 1)
+
+(defn ^:export init []
+  ((fn render []
+     (.requestAnimationFrame js/window render))))
+
+(defn on-js-reload []
+  ;; optionally touch your app-state to force rerendering depending on
+  ;; your application
+  )

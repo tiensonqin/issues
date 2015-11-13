@@ -13,22 +13,25 @@
 
   :source-paths ["src"]
 
-  :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
+  :clean-targets ^{:protect false} ["target"]
 
   :cljsbuild {
     :builds [{:id "dev"
               :source-paths ["src"]
 
-              :figwheel { :on-jsload "issues.core/on-js-reload" }
+              :figwheel {:on-jsload "issues.core/on-js-reload"
+                         :heads-up-display false
+                         :debug false}
 
               :compiler {:main issues.core
-                         :asset-path "js/compiled/out"
-                         :output-to "resources/public/js/compiled/issues.js"
-                         :output-dir "resources/public/js/compiled/out"
-                         :source-map-timestamp true }}
+                         :asset-path "target/out"
+                         :output-to "target/issues.js"
+                         :output-dir "target/out"
+                         :source-map-timestamp true}}
              {:id "min"
               :source-paths ["src"]
               :compiler {:output-to "index.ios.js"
+                         :output-dir "target/build"
                          :optimizations :simple
                          :pretty-print true}}]}
 

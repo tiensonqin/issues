@@ -13,4 +13,3 @@ pom.xml
 .nrepl-port
 node_modules/
 ios/main.jsbundle
-/index.ios.js

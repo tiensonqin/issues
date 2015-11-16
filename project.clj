@@ -6,10 +6,18 @@
 
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "1.7.170"]
-                 [reagent "0.5.1" :exclusions [cljsjs/react]]]
+                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]
+                 [reagent "0.5.1" :exclusions [cljsjs/react]]
+                 [cljs-http "0.1.37" :exclusions [org.clojure/clojure
+                                                  org.clojure/clojurescript]]
+                 [prismatic/schema "1.0.1"]
+
+                 ;; piggieback
+                 [com.cemerick/piggieback "0.2.1"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]
-            [lein-figwheel "0.5.0-SNAPSHOT"]]
+            [lein-figwheel "0.5.0-SNAPSHOT"]
+            [org.clojure/clojurescript "1.7.170"]]
 
   :source-paths ["src"]
 
@@ -43,7 +51,12 @@
              ;; :css-dirs ["resources/public/css"] ;; watch and update CSS
 
              ;; Start an nREPL server into the running figwheel process
-             ;; :nrepl-port 7888
+             :nrepl-port 7888
+
+             ;; Load CIDER, refactor-nrepl and piggieback middleware
+             :nrepl-middleware ["cider.nrepl/cider-middleware"
+                                "refactor-nrepl.middleware/wrap-refactor"
+                                "cemerick.piggieback/wrap-cljs-repl"]
 
              ;; Server Ring Handler (optional)
              ;; if you want to embed a ring handler into the figwheel http-kit

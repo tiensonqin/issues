@@ -38,6 +38,7 @@
             (= 400 status)
             (let [msgs (:message body)
                   msgs (if (map? msgs) (vals msgs) msgs)]
+              (prn "Error: " msgs)
               (dispatch [:set-notice :header :danger msgs]))
 
             (and (= 401 status) (= "access denied (jwt token is absent or invalid)" body))

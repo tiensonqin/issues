@@ -1,9 +1,9 @@
 (ns issues.core
   (:require [reagent.core :as r :refer [atom]]
-            [issues.react :refer [text view image touchable-highlight
-                                  navigator scroll input switch list-view
-                                  slider tabs tabs-item alert]]
-            [issues.utils :refer [data-source list-view-source]]
+            [issues.util :refer [text view image touchable-highlight
+                                 navigator-ios scroll input switch list-view
+                                 slider tabs tabs-item alert
+                                 row-has-changed]]
             ;; [issues.styles :refer [styles]]
             [issues.http :as http]
             [cljs-http.util :refer [json-decode]]))
@@ -41,8 +41,8 @@
 
 (defn movies-cp
   [movies]
-  [list-view {:dataSource (-> (js/React.ListView.DataSource. #js{:rowHasChanged (fn [a b] (not= a b))})
-                               (.cloneWithRows (clj->js (:movies movies))))
+  [list-view {:dataSource (-> (js/React.ListView.DataSource. #js{:rowHasChanged row-has-changed})
+                              (.cloneWithRows (clj->js (:movies movies))))
               :render-row (fn [row]
                             (r/as-element (movie-cp (js->clj row :keywordize-keys true))))
               :style (:list-view styles)}])
@@ -52,7 +52,7 @@
   [view {:style (:container styles)}
    [text "Loading movies..."]])
 
-(defn root
+(defn root-cp
   []
   (let [movies (r/atom nil)]
     (http/GET request-url {:on-success (fn [result]
@@ -117,7 +117,7 @@
 ;;                      (r/render [root] (.-rootTag params))))
 
 ;; -------------------- dev profile --------------------
-(r/render [root] 1)
+(r/render [root-cp] 1)
 
 (defn ^:export init []
   ((fn render []

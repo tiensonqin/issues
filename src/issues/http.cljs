@@ -2,6 +2,7 @@
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [cljs-http.client :as http]
             [cljs-http.util :refer [json-decode]]
+            [re-frame.core :refer [dispatch]]
             [cljs.core.async :refer [<!] :as async]))
 
 
@@ -17,9 +18,7 @@
              :as req
              :or {on-success println
                   ;; on-error #(dispatch [:set-error-notices %])
-                  on-401 #(do
-                            (cookies/remove! "TOKEN-EXISTS")
-                            redirect-to-login)
+                  on-401 #(println "redirect to login")
                   on-500 #(println "Wrong api request 500: " uri)}}]
   (let [http-fn (case verb
                   :get    http/get
@@ -30,7 +29,7 @@
               (<!
                (http-fn uri
                         (cond-> req
-                          xsrf-token? (assoc-in [:headers "x-xsrf-token"] (cookies/get :XSRF-TOKEN))
+                          ;; xsrf-token? (assoc-in [:headers "x-xsrf-token"] (cookies/get :XSRF-TOKEN))
                           req (dissoc :on-success :on-error :xsrf-token?))))]
           (cond
             (true? success)

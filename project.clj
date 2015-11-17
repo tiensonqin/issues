@@ -8,9 +8,12 @@
                  [org.clojure/clojurescript "1.7.170"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [reagent "0.5.1" :exclusions [cljsjs/react]]
+                 [re-frame "0.4.1"]
+                 [com.andrewmcveigh/cljs-time "0.3.14"]
                  [cljs-http "0.1.37" :exclusions [org.clojure/clojure
                                                   org.clojure/clojurescript]]
                  [prismatic/schema "1.0.1"]
+
 
                  ;; piggieback
                  [com.cemerick/piggieback "0.2.1"]]

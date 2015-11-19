@@ -14,7 +14,6 @@
                                                   org.clojure/clojurescript]]
                  [prismatic/schema "1.0.1"]
 
-
                  ;; piggieback
                  [com.cemerick/piggieback "0.2.1"]]
 
@@ -43,8 +42,7 @@
               :source-paths ["src"]
               :compiler {:output-to "index.ios.js"
                          :output-dir "target/build"
-                         :optimizations :simple
-                         :pretty-print true}}]}
+                         :optimizations :simple}}]}
 
   :figwheel {
              ;; :http-server-root "public" ;; default and assumes "resources"

@@ -28,6 +28,7 @@
 (def image (r/adapt-react-class (.-Image js/React)))
 (def touchable-highlight (r/adapt-react-class (.-TouchableHighlight js/React)))
 (def navigator-ios (r/adapt-react-class (.-NavigatorIOS js/React)))
+(def navigator (r/adapt-react-class (.-Navigator js/React)))
 (def scroll (r/adapt-react-class (.-ScrollView js/React)))
 (def input (r/adapt-react-class (.-TextInput js/React)))
 (def switch (r/adapt-react-class (.-SwitchIOS js/React)))

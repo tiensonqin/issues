@@ -1,0 +1,20 @@
+* react native cljs experiment
+** DONE How to require static image?
+   CLOSED: [2015-11-19 Thu 08:19]
+   #+BEGIN_SRC js
+     React.createElement(Image,{source:require('issues/img/firefox.png')})
+   #+END_SRC
+   1. create a asset.js
+      #+BEGIN_SRC js
+        /**
+         ,*
+         ,* @providesModule Assets
+         ,*
+         ,*/
+        require('./logo.png');
+      #+END_SRC
+   2. add
+      #+BEGIN_SRC js
+      require('Assets');
+      #+END_SRC
+      to development.ios.js or index.ios.js

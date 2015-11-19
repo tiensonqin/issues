@@ -15,3 +15,4 @@ node_modules/
 ios/main.jsbundle
 /npm-debug.log
 ios/issues.xcodeproj/project.xcworkspace/xcuserdata/
+/.natal

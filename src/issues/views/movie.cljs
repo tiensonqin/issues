@@ -31,9 +31,9 @@
     (fn []
       (if @movies
         [list-view {:dataSource (-> (js/React.ListView.DataSource. #js{:rowHasChanged row-has-changed})
-                                   (.cloneWithRows (clj->js (:movies @movies))))
-                   :render-row (fn [row]
-                                 (r/as-element (movie-cp (js->clj row :keywordize-keys true))))
+                                    (.cloneWithRows (clj->js (:movies @movies))))
+                    :render-row (fn [row]
+                                  (r/as-element (movie-cp (js->clj row :keywordize-keys true))))
                     :style (:list-view styles)}]
 
         [loading-cp]))))

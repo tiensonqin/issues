@@ -11,7 +11,7 @@
 
 ;; (.registerRunnable (.-AppRegistry js/React) "issues"
 ;;                    (fn [params]
-;;                      (r/render [root] (.-rootTag params))))
+;;                      (r/render [movies-cp] (.-rootTag params))))
 
 ;; -------------------- dev profile --------------------
 

@@ -13,12 +13,13 @@ var {
   Text
 } = React;
 
+// require('img/firefox.png');
 var issues = React.createClass({
   render: function() {
     return (
       <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
         <Text>Reagent/Om not loaded yet.</Text>
-      </View>
+       </View>
     );
   }
 });
@@ -27,8 +28,3 @@ AppRegistry.registerComponent('issues', () => issues);
 
 // For some reason, Reagent doesn't render on inital load unless this is async...
 setTimeout(FigBridge.start, 1);
-
-
-
-
-

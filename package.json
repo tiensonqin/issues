@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "react-native start"
+      "start": "react-native start",
+      "build": "react-native bundle --entry-file index.ios.js --platform ios --minify --bundle-output ios/main.jsbundle"
   },
   "dependencies": {
     "react-native": "^0.14.2"

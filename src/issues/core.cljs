@@ -5,22 +5,27 @@
             [issues.subs]
             [issues.views.movie :refer [movies-cp]]))
 
+;; React Native should set DEV to false when bundling with --minify
+;;   if you're getting App Registration errors in production, just set this to false
+(def developMode? js/__DEV__)
+
 (enable-console-print!)
 
-;; -------------------- min profile, for offline bundle, release --------------------
-
-;; (.registerRunnable (.-AppRegistry js/React) "issues"
-;;                    (fn [params]
-;;                      (r/render [movies-cp] (.-rootTag params))))
-
-;; -------------------- dev profile --------------------
-
-(r/render [movies-cp] 1)
-
-(defn ^:export init []
+(defn runDevelopment []
   (dispatch-sync [:initialize-db])
-  ((fn render []
-     (.requestAnimationFrame js/window render))))
+  (r/render [movies-cp] 1)
+  (defn ^:export init []
+    ((fn render []
+       (.requestAnimationFrame js/window render)))))
+
+(defn runProduction []
+  (dispatch-sync [:initialize-db])
+  (.registerRunnable (.-AppRegistry js/React) "figTest"
+                     (fn [params]
+                       (r/render [root] (.-rootTag params)))))
+(case developMode?
+  true (runDevelopment)
+  (runProduction))
 
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on

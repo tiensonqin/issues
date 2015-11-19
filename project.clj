@@ -23,7 +23,7 @@
 
   :source-paths ["src"]
 
-  :clean-targets ^{:protect false} ["target"]
+  :clean-targets ^{:protect false} ["dev" "min" "index.ios.js"]
 
   :cljsbuild {
     :builds [{:id "dev"
@@ -34,15 +34,15 @@
                          :debug false}
 
               :compiler {:main issues.core
-                         :asset-path "target/out"
-                         :output-to "target/issues.js"
-                         :output-dir "target/out"
+                         :output-to "dev/do_not_use.js"
+                         :output-dir "dev"
                          :source-map-timestamp true}}
              {:id "min"
               :source-paths ["src"]
               :compiler {:output-to "index.ios.js"
-                         :output-dir "target/build"
-                         :optimizations :simple}}]}
+                         :output-dir "min"
+                         :optimizations :simple
+                         :pretty-print true}}]}
 
   :figwheel {
              ;; :http-server-root "public" ;; default and assumes "resources"
